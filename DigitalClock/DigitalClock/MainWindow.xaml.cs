@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DigitalClock
 {
@@ -20,6 +21,7 @@ namespace DigitalClock
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Clock> ClockList;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,12 +29,33 @@ namespace DigitalClock
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            ClockList = new List<Clock>();
+            Clock Warszawa = new Clock();
+            Warszawa.City = "Warszawa";
+            Warszawa.SetDate();
+            Warszawa.SetTime();
+
+            ClockList.Add(Warszawa);
+
+            ClocksList.ItemsSource = ClockList;
+
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
 
         }
 
-        private void QuitBtn_Click(object sender, RoutedEventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
+            foreach (var item in ClockList)
+            {
+                item.SetTime();
+            }
 
+            ClocksList.Items.Refresh();
         }
     }
 }
