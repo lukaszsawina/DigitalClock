@@ -1,0 +1,6 @@
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\bin\Debug\ClockLibrary.dll
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\bin\Debug\ClockLibrary.pdb
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\obj\Debug\ClockLibrary.csprojAssemblyReference.cache
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\obj\Debug\ClockLibrary.csproj.CoreCompileInputs.cache
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\obj\Debug\ClockLibrary.dll
+C:\dev\C#\DigitalClock\DigitalClock\ClockLibrary\obj\Debug\ClockLibrary.pdb
