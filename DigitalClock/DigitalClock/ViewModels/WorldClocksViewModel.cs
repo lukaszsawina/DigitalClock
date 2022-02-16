@@ -8,9 +8,11 @@ using System.Windows.Threading;
 
 namespace DigitalClock.ViewModels
 {
-    class WorldClocksViewModel : Screen
+    class WorldClocksViewModel : Conductor<object>
     {
         private BindableCollection<ClockModel> _clocks = new BindableCollection<ClockModel>();
+        private TimeZoneInfo _timeZone = TimeZoneInfo.Local; //Czy to jest na pewno potrzebne?
+        private int _localTimeDiff = TimeZoneInfo.Local.BaseUtcOffset.Hours;
 
         public BindableCollection<ClockModel> Clocks
         {
@@ -28,7 +30,8 @@ namespace DigitalClock.ViewModels
 
             ClockModel Warszawa = new ClockModel();
             Warszawa.City = "Warszawa";
-            Warszawa.SetDate();
+
+            Warszawa.SetDate(_localTimeDiff);
             Warszawa.SetTime();
 
             Clocks.Add(Warszawa);
@@ -47,11 +50,12 @@ namespace DigitalClock.ViewModels
 
         public void AddNewClock()
         {
-            ClockModel New = new ClockModel();
+            ClockModel New = new ClockModel("Central America Standard Time");
             New.City = "Warszawa";
-            New.SetDate();
+            New.SetDate(_localTimeDiff);
             New.SetTime();
             Clocks.Add(New);
+
         }
     }
 }

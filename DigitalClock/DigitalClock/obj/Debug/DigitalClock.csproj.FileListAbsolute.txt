@@ -34,3 +34,5 @@ C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\ShellView.baml
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\TimerView.baml
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\WorldClocksView.g.cs
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\WorldClocksView.baml
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\AddClockView.g.cs
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\AddClockView.baml

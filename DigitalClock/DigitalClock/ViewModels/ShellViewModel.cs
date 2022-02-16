@@ -9,18 +9,21 @@ namespace DigitalClock.ViewModels
 {
     public class ShellViewModel : Conductor<object>
     {
+        private WorldClocksViewModel _clockView = new WorldClocksViewModel();
+        private TimerViewModel _timerView = new TimerViewModel();
+
         public ShellViewModel()
         {
-            ActiveItem = new WorldClocksViewModel();
+            ActiveItem = _clockView;
         }
 
         public void LoadWordlClocks()
         {
-            ActiveItem = new WorldClocksViewModel();
+            ActiveItem = _clockView;
         }
         public void LoadTimer()
         {
-            ActiveItem = new TimerViewModel();
+            ActiveItem = _timerView();
         }
     }
 }
