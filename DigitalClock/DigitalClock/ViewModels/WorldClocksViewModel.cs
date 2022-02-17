@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace DigitalClock.ViewModels
@@ -15,12 +17,23 @@ namespace DigitalClock.ViewModels
     {
         private BindableCollection<ClockModel> _clocks = new BindableCollection<ClockModel>();
         private TimeZoneInfo _timeZone = TimeZoneInfo.Local;
-        private BindableCollection<TimeZoneJsonModel> _timeZoneList = new BindableCollection<TimeZoneJsonModel>();
+        private BindableCollection<TimeZoneModel> _timeZoneList = new BindableCollection<TimeZoneModel>();
 
 
         private int _localTimeDiff = TimeZoneInfo.Local.BaseUtcOffset.Hours;
         private bool _addClockFormIsVisible = false;
         private bool _worldClockIsVisible = true;
+        private TimeZoneModel _selectedTimeZone;
+
+        public TimeZoneModel SelectedTimeZone
+        {
+            get { return _selectedTimeZone; }
+            set 
+            { 
+                _selectedTimeZone = value; 
+            }
+        }
+
 
         private readonly string _path = "TimeZone.json";
 
@@ -56,7 +69,7 @@ namespace DigitalClock.ViewModels
             }
         }
 
-        public BindableCollection<TimeZoneJsonModel> TimeZoneList
+        public BindableCollection<TimeZoneModel> TimeZoneList
         {
             get { return _timeZoneList; }
             set
@@ -72,7 +85,6 @@ namespace DigitalClock.ViewModels
 
             ClockModel Warszawa = new ClockModel();
             Warszawa.City = "Warszawa";
-
             Warszawa.SetDate(_localTimeDiff);
             Warszawa.SetTime();
 
@@ -106,9 +118,53 @@ namespace DigitalClock.ViewModels
 
         public void InitializeData()
         {
+
             if(TimeZoneList.Count == 0)
-                TimeZoneList = JsonConvert.DeserializeObject<BindableCollection<TimeZoneJsonModel>>(File.ReadAllText(_path));
+            {
+                List<TimeZoneJsonModel> timeZoneJson = new List<TimeZoneJsonModel>();
+
+                timeZoneJson = JsonConvert.DeserializeObject<List<TimeZoneJsonModel>>(File.ReadAllText(_path));
+                List<TimeZoneModel> timeZoneList = new List<TimeZoneModel>();
+
+                foreach (TimeZoneJsonModel model in timeZoneJson)
+                {
+                    string City = model.tZDesc;
+
+                    string[] Citys = City.Split(new[] { ", " }, StringSplitOptions.None);
+
+                    foreach (string city in Citys.Skip(1))
+                    {
+                        TimeZoneModel newTimeZone = new TimeZoneModel();
+                        newTimeZone.Standard = model.tZCode;
+                        newTimeZone.City = city;
+
+                        timeZoneList.Add(newTimeZone);
+                    }
+
+                    
+                }
+                var list = timeZoneList.OrderBy(x => x.City).ToList();
+
+                foreach(var timezone in list)
+                {
+                    TimeZoneList.Add(timezone);
+                }
+
+            }
         }
 
+        public void AddClock(System.Windows.Controls.ListView args)
+        {
+            TimeZoneModel newClockModel = new TimeZoneModel();
+            newClockModel = (TimeZoneModel)args.SelectedItem;
+
+            ClockModel newClock = new ClockModel(newClockModel.Standard, _localTimeDiff);
+            newClock.City = newClockModel.City;
+
+            Clocks.Add(newClock);
+
+            AddClockFormIsVisible = !AddClockFormIsVisible;
+            WordlClockIsVisible = !AddClockFormIsVisible;
+        }
     }
 }

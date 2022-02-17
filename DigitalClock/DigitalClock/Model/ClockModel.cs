@@ -12,6 +12,7 @@ namespace DigitalClock
         private string _time;
         private TimeZoneInfo _timeZone;
         private DateTime _currentTime;
+        public string TimeZoneString { get; set; }
 
         public string Time
         {
@@ -27,14 +28,16 @@ namespace DigitalClock
         {
             _timeZone = TimeZoneInfo.Local;
             _currentTime = DateTime.Now;
+            TimeZoneString = _timeZone.Id;
 
         }
-        public ClockModel(string timeZone)
+        public ClockModel(string timeZone, int localTimeDiff)
         {
             _timeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
-
-
+            TimeZoneString = timeZone;
             _currentTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(timeZone));
+
+            SetDate(localTimeDiff);
         }
 
 
@@ -44,6 +47,8 @@ namespace DigitalClock
 
         public void SetTime()
         {
+            _currentTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(TimeZoneString));
+
             Time = _currentTime.ToString("HH:mm");
         }
         public void SetDate(int localTimeDiff)
@@ -60,5 +65,7 @@ namespace DigitalClock
                 Date = $"Dzisiaj: { delta.ToString() } H";
         }
 
+
+        //TODO - Gdy jest kolejny dzień lub wcześniejszy niech pojawia się Jutro/Wczoraj
     }
 }
