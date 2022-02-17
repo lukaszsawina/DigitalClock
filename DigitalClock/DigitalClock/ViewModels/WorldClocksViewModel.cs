@@ -1,6 +1,9 @@
 ﻿using Caliburn.Micro;
+using DigitalClock.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +11,40 @@ using System.Windows.Threading;
 
 namespace DigitalClock.ViewModels
 {
-    class WorldClocksViewModel : Conductor<object>
+    class WorldClocksViewModel : Screen
     {
         private BindableCollection<ClockModel> _clocks = new BindableCollection<ClockModel>();
-        private TimeZoneInfo _timeZone = TimeZoneInfo.Local; //Czy to jest na pewno potrzebne?
+        private TimeZoneInfo _timeZone = TimeZoneInfo.Local;
+        private BindableCollection<TimeZoneJsonModel> _timeZoneList = new BindableCollection<TimeZoneJsonModel>();
+
+
         private int _localTimeDiff = TimeZoneInfo.Local.BaseUtcOffset.Hours;
+        private bool _addClockFormIsVisible = false;
+        private bool _worldClockIsVisible = true;
+
+        private readonly string _path = "TimeZone.json";
+
+
+        public bool WordlClockIsVisible 
+        {
+            get { return _worldClockIsVisible; }
+            set 
+            { 
+                _worldClockIsVisible = value;
+                NotifyOfPropertyChange(() => WordlClockIsVisible);
+            }
+        }
+
+
+        public bool AddClockFormIsVisible
+        {
+            get { return _addClockFormIsVisible; }
+            set 
+            {
+                _addClockFormIsVisible = value;
+                NotifyOfPropertyChange(() => AddClockFormIsVisible);
+            }
+        }
 
         public BindableCollection<ClockModel> Clocks
         {
@@ -21,6 +53,16 @@ namespace DigitalClock.ViewModels
             { 
                 _clocks = value;
                 NotifyOfPropertyChange(() => Clocks);
+            }
+        }
+
+        public BindableCollection<TimeZoneJsonModel> TimeZoneList
+        {
+            get { return _timeZoneList; }
+            set
+            {
+                _timeZoneList = value;
+                NotifyOfPropertyChange(() => TimeZoneList);
             }
         }
 
@@ -50,12 +92,23 @@ namespace DigitalClock.ViewModels
 
         public void AddNewClock()
         {
-            ClockModel New = new ClockModel("Central America Standard Time");
-            New.City = "Warszawa";
-            New.SetDate(_localTimeDiff);
-            New.SetTime();
-            Clocks.Add(New);
+            InitializeData();
 
+            AddClockFormIsVisible = !AddClockFormIsVisible;
+            WordlClockIsVisible = !AddClockFormIsVisible;
         }
+
+        public void HideTimeZoneList()
+        {
+            AddClockFormIsVisible = !AddClockFormIsVisible;
+            WordlClockIsVisible = !AddClockFormIsVisible;
+        }
+
+        public void InitializeData()
+        {
+            if(TimeZoneList.Count == 0)
+                TimeZoneList = JsonConvert.DeserializeObject<BindableCollection<TimeZoneJsonModel>>(File.ReadAllText(_path));
+        }
+
     }
 }

@@ -7,26 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              >
-    <Grid Background="#000">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <Button 
+    <Grid Background="#000" >
+
+        <Grid x:Name="WordlClockIsVisible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button 
             Content="Edytuj" 
             Grid.Column="0" Grid.Row="0"
             Style="{StaticResource TopMenuButtonTheme}"
             BorderThickness="0"
             
             />
-        <Button 
+            <Button 
             Content="Dodaj" 
             x:Name="AddNewClock"
             Grid.Column="2" Grid.Row="0"
@@ -34,45 +36,42 @@
             BorderThickness="0"
            
             />
-
-        <TextBlock 
+            <TextBlock 
             Grid.Row="1" Grid.ColumnSpan="3"
             FontSize="30" FontWeight="Bold" Foreground="White"
             Margin="10 10">
             Zegary świata
-        </TextBlock>
-
-
-        <ListView 
+            </TextBlock>
+            <ListView 
             ItemsSource="{Binding Path=Clocks}"
             Grid.Row="2" Grid.ColumnSpan="3" 
             Background="#000"
             BorderThickness="0"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
             >
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate >
-                <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="0 1 0 0">
-                        <Grid>
-                            <StackPanel>
-                                <TextBlock
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="0 1 0 0">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock
                                 FontSize="16"
                                 Foreground="Gray"
                                 Text="{Binding Path=Date, Mode=OneWay}"
                                 />
-                                <TextBlock
+                                    <TextBlock
                                 Foreground="#FFF"
                                 FontSize="26"
                                 Text="{Binding Path=City, Mode=OneWay}"
                                 />
-                            </StackPanel>
+                                </StackPanel>
 
-                            <TextBlock
+                                <TextBlock
                                 
                                 HorizontalAlignment="Right"
                                 Grid.Column="3"
@@ -81,15 +80,81 @@
                                 Margin="0 0 10 0"
                                 Text="{Binding Path=Time, Mode=OneWay}"
                                 />
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
-        
-        
-        
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Grid Background="#404040" x:Name="AddClockFormIsVisible">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button 
+                Background="Transparent"
+                BorderBrush="Transparent"
+                x:Name="HideTimeZoneList"
+                Grid.ColumnSpan="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Foreground="#fff"
+                   Margin="0 8 0 20">
+            Wybierz miasto
+            </Button>
+
+            <TextBox Grid.Row="1"
+                 Margin="10 0"
+                 Background="#595959"
+                 Text="Szukaj"
+                 FontSize="20"
+                 Foreground="#999999"
+                 Padding="10 2"
+                 BorderThickness="0"
+                     x:Name="SearchBox"
+                 />
+            <Button 
+                Grid.Column="2" 
+                Grid.Row="1" 
+                Content="Anuluj"
+                Background="#404040"
+                Style="{StaticResource TopMenuButtonTheme}"
+                />
+
+            <ListView
+            Margin="0 15 0 0"
+            ItemsSource="{Binding Path=TimeZoneList}"
+            Grid.Row="2" Grid.ColumnSpan="2" 
+            Background="#000"
+            BorderThickness="0"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <TextBlock  
+                        FontSize="16"
+                        Foreground="Gray"
+                        Text="{Binding Path=tZCode, Mode=OneWay}"
+                        />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
+
 </UserControl>

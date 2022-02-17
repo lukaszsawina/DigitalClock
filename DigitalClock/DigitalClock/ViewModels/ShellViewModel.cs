@@ -23,7 +23,9 @@ namespace DigitalClock.ViewModels
         }
         public void LoadTimer()
         {
-            ActiveItem = _timerView();
+
+
+
         }
     }
 }
