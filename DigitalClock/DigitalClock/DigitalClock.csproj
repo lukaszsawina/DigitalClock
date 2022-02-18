@@ -78,9 +78,17 @@
     </ApplicationDefinition>
     <Compile Include="Model\TimeZoneJsonModel.cs" />
     <Compile Include="Model\TimeZoneModel.cs" />
+    <Compile Include="ViewModels\StopWatchViewModel.cs" />
+    <Compile Include="Views\StopWatchView.xaml.cs">
+      <DependentUpon>StopWatchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WorldClocksView.xaml.cs">
       <DependentUpon>WorldClocksView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Theme\CircleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\NormalButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +109,10 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\StopWatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TimerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

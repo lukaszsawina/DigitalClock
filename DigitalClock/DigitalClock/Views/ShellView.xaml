@@ -43,6 +43,7 @@
             >
             </Button>
         <Button 
+            x:Name="LoadStopWatch"
             Content="Stoper"
             Grid.Row="4" Grid.Column="2"
             Style="{StaticResource MenuButtonTheme}"

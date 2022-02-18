@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\App.xaml
-6238296824
+8917714835
 
-14115804362
+161329076915
 211092545379
-Theme\NormalButtonTheme.xaml;Views\ShellView.xaml;Views\TimerView.xaml;Theme\MenuButtonTheme.xaml;Theme\TopMenuButtonTheme.xaml;Views\WorldClocksView.xaml;
+Theme\CircleButton.xaml;Theme\NormalButtonTheme.xaml;Views\ShellView.xaml;Views\StopWatchView.xaml;Views\TimerView.xaml;Theme\MenuButtonTheme.xaml;Theme\TopMenuButtonTheme.xaml;Views\WorldClocksView.xaml;
 
 False
 

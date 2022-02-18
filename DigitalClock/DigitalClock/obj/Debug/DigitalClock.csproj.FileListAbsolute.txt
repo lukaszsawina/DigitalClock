@@ -37,3 +37,6 @@ C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\WorldClocksView
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\bin\Debug\Newtonsoft.Json.dll
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\bin\Debug\Newtonsoft.Json.xml
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Theme\NormalButtonTheme.baml
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\StopWatchView.g.cs
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\StopWatchView.baml
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Theme\CircleButton.baml
