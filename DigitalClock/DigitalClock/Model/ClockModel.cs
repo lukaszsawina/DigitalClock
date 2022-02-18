@@ -9,6 +9,7 @@ namespace DigitalClock
 {
     public class ClockModel : PropertyChangedBase
     {
+        public int Id { get; set; }
         private string _time;
         private TimeZoneInfo _timeZone;
         private DateTime _currentTime;
@@ -31,18 +32,19 @@ namespace DigitalClock
             TimeZoneString = _timeZone.Id;
 
         }
-        public ClockModel(string timeZone, int localTimeDiff)
+        public ClockModel(string timeZone, int localTimeDiff, int id)
         {
             _timeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZone);
             TimeZoneString = timeZone;
             _currentTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(timeZone));
+
+            Id = id;
 
             SetDate(localTimeDiff);
         }
 
 
         public string City { get; set; }
-        //public string Time { get; set; }
         public string Date { get; set; }
 
         public void SetTime()
@@ -54,18 +56,36 @@ namespace DigitalClock
         public void SetDate(int localTimeDiff)
         { 
             int timeDiff = 0;
+            int deltaDay = 0;
             int delta;
 
             timeDiff = _timeZone.BaseUtcOffset.Hours;
             delta = timeDiff - localTimeDiff;
 
-            if (delta >= 0)
-                Date = $"Dzisiaj: +{ delta.ToString() } GODZ.";
+            deltaDay = Int32.Parse(_currentTime.ToString("dd")) - Int32.Parse(DateTime.Now.ToString("dd"));
+
+            if(deltaDay > 0)
+            {
+                if (delta >= 0)
+                    Date = $"Jutro: +{ delta.ToString() } GODZ.";
+                else
+                    Date = $"Jutro: { delta.ToString() } H";
+            }
+            else if(deltaDay < 0)
+            {
+                if (delta >= 0)
+                    Date = $"Wczoraj: +{ delta.ToString() } GODZ.";
+                else
+                    Date = $"Wczoraj: { delta.ToString() } H";
+            }
             else
-                Date = $"Dzisiaj: { delta.ToString() } H";
+            {
+                if (delta >= 0)
+                    Date = $"Dzisiaj: +{ delta.ToString() } GODZ.";
+                else
+                    Date = $"Dzisiaj: { delta.ToString() } H";
+            }
+
         }
-
-
-        //TODO - Gdy jest kolejny dzień lub wcześniejszy niech pojawia się Jutro/Wczoraj
     }
 }

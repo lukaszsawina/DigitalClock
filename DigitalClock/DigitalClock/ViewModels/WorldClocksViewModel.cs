@@ -19,11 +19,37 @@ namespace DigitalClock.ViewModels
         private TimeZoneInfo _timeZone = TimeZoneInfo.Local;
         private BindableCollection<TimeZoneModel> _timeZoneList = new BindableCollection<TimeZoneModel>();
 
-
         private int _localTimeDiff = TimeZoneInfo.Local.BaseUtcOffset.Hours;
         private bool _addClockFormIsVisible = false;
         private bool _worldClockIsVisible = true;
+        private bool _deleteButtonIsVisible = false;
+        private bool _normalListIsVisible = true;
+
+        public bool NormalListIsVisible
+        {
+            get { return _normalListIsVisible; }
+            set 
+            { 
+                _normalListIsVisible = value;
+                NotifyOfPropertyChange(() => NormalListIsVisible);
+            }
+        }
+
+
         private TimeZoneModel _selectedTimeZone;
+
+        private readonly string _path = "TimeZone.json";
+
+        public bool DeleteButtonIsVisible
+        {
+            get { return _deleteButtonIsVisible; }
+            set
+            {
+                _deleteButtonIsVisible = value;
+                NotifyOfPropertyChange(() => DeleteButtonIsVisible);
+            }
+        }
+
 
         public TimeZoneModel SelectedTimeZone
         {
@@ -34,10 +60,6 @@ namespace DigitalClock.ViewModels
             }
         }
 
-
-        private readonly string _path = "TimeZone.json";
-
-
         public bool WordlClockIsVisible 
         {
             get { return _worldClockIsVisible; }
@@ -47,7 +69,6 @@ namespace DigitalClock.ViewModels
                 NotifyOfPropertyChange(() => WordlClockIsVisible);
             }
         }
-
 
         public bool AddClockFormIsVisible
         {
@@ -84,6 +105,7 @@ namespace DigitalClock.ViewModels
             DispatcherTimer timer = new DispatcherTimer();
 
             ClockModel Warszawa = new ClockModel();
+            Warszawa.Id = 1;
             Warszawa.City = "Warszawa";
             Warszawa.SetDate(_localTimeDiff);
             Warszawa.SetTime();
@@ -158,13 +180,31 @@ namespace DigitalClock.ViewModels
             TimeZoneModel newClockModel = new TimeZoneModel();
             newClockModel = (TimeZoneModel)args.SelectedItem;
 
-            ClockModel newClock = new ClockModel(newClockModel.Standard, _localTimeDiff);
+            int newId = 1;
+
+            if (Clocks.Count() != 0)
+                newId = Clocks.Max(x => x.Id) + 1;
+
+            ClockModel newClock = new ClockModel(newClockModel.Standard, _localTimeDiff, newId);
             newClock.City = newClockModel.City;
 
             Clocks.Add(newClock);
 
             AddClockFormIsVisible = !AddClockFormIsVisible;
             WordlClockIsVisible = !AddClockFormIsVisible;
+        }
+
+        public void EditClock()
+        {
+            DeleteButtonIsVisible = !DeleteButtonIsVisible;
+            NormalListIsVisible = !NormalListIsVisible;
+        }
+        public void DeleteClock(ClockModel e)
+        {
+            Clocks.Remove(e);
+
+            if (Clocks.Count == 0)
+                EditClock();
         }
     }
 }

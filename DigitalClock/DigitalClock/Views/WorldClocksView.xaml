@@ -23,6 +23,7 @@
             </Grid.RowDefinitions>
 
             <Button 
+                x:Name="EditClock"
             Content="Edytuj" 
             Grid.Column="0" Grid.Row="0"
             Style="{StaticResource TopMenuButtonTheme}"
@@ -43,12 +44,16 @@
             Margin="10 10">
             Zegary świata
             </TextBlock>
+
+            <Grid
+                Grid.Row="2" Grid.ColumnSpan="3"
+                x:Name="NormalListIsVisible">
             <ListView 
             ItemsSource="{Binding Path=Clocks}"
-            Grid.Row="2" Grid.ColumnSpan="3" 
             Background="#000"
             BorderThickness="0"
             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -59,7 +64,12 @@
                     <DataTemplate>
                         <Border BorderBrush="Gray" BorderThickness="0 1 0 0">
                             <Grid>
-                                <StackPanel>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1">
                                     <TextBlock
                                 FontSize="16"
                                 Foreground="Gray"
@@ -75,7 +85,7 @@
                                 <TextBlock
                                 
                                 HorizontalAlignment="Right"
-                                Grid.Column="3"
+                                Grid.Column="2"
                                 FontSize="40"
                                 Foreground="#fff"
                                 Margin="0 0 10 0"
@@ -87,6 +97,69 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            </Grid>
+
+            <Grid
+                Grid.Row="2" Grid.ColumnSpan="3"
+                x:Name="DeleteButtonIsVisible"
+                >
+                <ListView 
+            ItemsSource="{Binding Path=Clocks}"
+            Background="#000"
+            BorderThickness="0"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="0 1 0 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button 
+                                        cal:Message.Attach="[Event Click] = [Action DeleteClock($dataContext)]"
+                                    Content="Usuń" 
+                                    Grid.Column="0"
+                                    Style="{StaticResource NormalButtonTheme}"
+                                    />
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock
+                                FontSize="16"
+                                Foreground="Gray"
+                                Text="{Binding Path=Date, Mode=OneWay}"
+                                />
+                                        <TextBlock
+                                Foreground="#FFF"
+                                FontSize="26"
+                                Text="{Binding Path=City, Mode=OneWay}"
+                                />
+                                    </StackPanel>
+
+                                    <TextBlock
+                                
+                                HorizontalAlignment="Right"
+                                Grid.Column="2"
+                                FontSize="40"
+                                Foreground="#fff"
+                                Margin="0 0 10 0"
+                                Text="{Binding Path=Time, Mode=OneWay}"
+                                />
+                                </Grid>
+
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            
         </Grid>
 
         <Grid Background="#404040" x:Name="AddClockFormIsVisible">

@@ -81,6 +81,10 @@
     <Compile Include="Views\WorldClocksView.xaml.cs">
       <DependentUpon>WorldClocksView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Theme\NormalButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
