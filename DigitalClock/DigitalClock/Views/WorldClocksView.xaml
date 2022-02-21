@@ -125,7 +125,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Button 
-                                        cal:Message.Attach="[Event Click] = [Action DeleteClock($dataContext)]"
+                                        cal:Message.Attach="[Event IsMouseCapturedChanged] = [Action DeleteClock($dataContext)]"
                                     Content="Usuń" 
                                     Grid.Column="0"
                                     Style="{StaticResource NormalButtonTheme}"

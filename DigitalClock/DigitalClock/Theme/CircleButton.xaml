@@ -1,28 +1,32 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
- 
-    <Style x:Key="CircleButton" TargetType="Button">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Margin" Value="2"/>
-        <Setter Property="Background" Value="#3e3e3e"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Ellipse
-                                Width="50"
-                                Height="50"
-                                Stroke="Black"
-                                StrokeThickness="4" />
-                        <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#6e6e6e"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+
+    <Style BasedOn="{StaticResource {x:Type Button}}"
+           TargetType="{x:Type Button}"
+           x:Key="CircleButton">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid 
+                              Background="Transparent"
+                              Margin="0 10"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"
+                              >
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       Foreground="#00b300" FontSize="17"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Foreground" Value="#29a329"/>
+            </Trigger>
+        </Style.Triggers>
+
     </Style>
 </ResourceDictionary>

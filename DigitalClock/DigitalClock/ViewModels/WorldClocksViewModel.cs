@@ -199,6 +199,7 @@ namespace DigitalClock.ViewModels
             DeleteButtonIsVisible = !DeleteButtonIsVisible;
             NormalListIsVisible = !NormalListIsVisible;
         }
+
         public void DeleteClock(ClockModel e)
         {
             Clocks.Remove(e);

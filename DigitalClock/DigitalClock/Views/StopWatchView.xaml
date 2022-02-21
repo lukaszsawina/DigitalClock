@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DigitalClock.Views"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -19,6 +20,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock
+            x:Name="Measure"
             Grid.ColumnSpan="3"
             Text="00:00,00"
             FontSize="60"
@@ -33,10 +35,25 @@
                 BorderBrush="#1a1a1a"
                 CornerRadius="360"
                 Width="70"
-                Height="70">
-            <Grid Width="60" Height="60">
+                Height="70"
+                x:Name="RoundIsVisible">
+            <Grid Width="60" Height="60" >
                 <Ellipse Fill="#1a1a1a"/>
-                <TextBlock HorizontalAlignment="Center" Text="Runda" TextAlignment="Center" VerticalAlignment="Center" Foreground="#737373" FontSize="17"/>
+                <Button Style="{StaticResource CircleButton}" Content="Runda" cal:Message.Attach="[Event Click] = [Action AddRound()] " Foreground="#737373"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Margin="10 0"
+                BorderThickness="2"
+                BorderBrush="#1a1a1a"
+                CornerRadius="360"
+                Width="70"
+                Height="70"
+                x:Name="ResetButtonIsVisible">
+            <Grid Width="60" Height="60" >
+                <Ellipse Fill="#1a1a1a"/>
+                <Button Style="{StaticResource CircleButton}" Content="Wyzeruj" cal:Message.Attach="[Event Click] = [Action ResetMeasureTime()] " Foreground="#737373"/>
             </Grid>
         </Border>
 
@@ -47,11 +64,51 @@
                 BorderBrush="#004d00"
                 CornerRadius="360"
                 Width="70"
-                Height="70">
+                Height="70"
+                x:Name="StartButtonIsVisible"
+                >
             <Grid Width="60" Height="60">
                 <Ellipse Fill="#004d00"/>
-                <TextBlock HorizontalAlignment="Center" Text="Start" TextAlignment="Center" VerticalAlignment="Center" Foreground="#00b300" FontSize="17"/>
+                <Button Style="{StaticResource CircleButton}" Content="Start" cal:Message.Attach="[Event Click] = [Action StartMeasureTime()] "/>
             </Grid>
         </Border>
+
+        <Border Grid.Row="1"
+                Grid.Column="2"
+                Margin="10 0"
+                BorderThickness="2"
+                BorderBrush="#004d00"
+                CornerRadius="360"
+                Width="70"
+                Height="70"
+                x:Name="StopButtonIsVisible"
+                >
+            <Grid Width="60" Height="60" >
+                <Ellipse Fill="#004d00"/>
+                <Button Style="{StaticResource CircleButton}" Content="Stop" cal:Message.Attach="[Event Click] = [Action StopMeasureTime()]"/>
+            </Grid>
+        </Border>
+
+
+
+        <ListView Grid.Row="2"
+                  Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Path=Rounds}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Margin="0 20 0 0"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="100"  Foreground="#fff" Text="{Binding Path=RoundNumber, Mode=OneWay}"/>
+                        <TextBlock Width="170"  TextAlignment="Right" Foreground="#fff" Text="{Binding Path=Time, Mode=OneWay}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        
     </Grid>
 </UserControl>
