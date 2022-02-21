@@ -14,6 +14,7 @@ namespace DigitalClock.ViewModels
 
         private string _measure = "00:00,00";
         private DateTime _timeWhenStart;
+        private DateTime _roundStart;
         private DispatcherTimer _stopWatch = new DispatcherTimer();
         private BindableCollection<RoundModel> _rounds = new BindableCollection<RoundModel>();
 
@@ -102,7 +103,7 @@ namespace DigitalClock.ViewModels
         public void StartMeasureTime()
         {
             _stopWatch.Start();
-
+            _roundStart = DateTime.Now;
             _timeWhenStart = DateTime.Now;
 
             if (Measure.Equals("00:00,00"))
@@ -135,12 +136,17 @@ namespace DigitalClock.ViewModels
                  newId = Rounds.Max(x => x.Id) + 1;
             }
 
+            TimeSpan value = DateTime.Now.Subtract(_roundStart);
+
             model.Id = newId;
             model.RoundNumber = $"Runda { newId }";
             model.Time = Measure;
+            model.RoundTime = value;
+            model.Color = "#fff";
 
             Rounds.Insert(0,model);
-            Rounds.OrderByDescending(x => x.Id);
+            SetColorOfBestAndWorst();
+            _roundStart = DateTime.Now;
         }
 
         public void StopMeasureTime()
@@ -151,6 +157,18 @@ namespace DigitalClock.ViewModels
             StopButtonIsVisible = !StopButtonIsVisible;
 
             ResetButtonIsVisible = !ResetButtonIsVisible;
+
+        }
+
+        private void SetColorOfBestAndWorst()
+        {
+            foreach(var r in Rounds)
+            {
+                r.Color = "#fff";
+            }
+
+            Rounds.OrderByDescending(i => i.RoundTime).First().Color = "#ff0000";
+            Rounds.OrderBy(i => i.RoundTime).First().Color = "#00e600";
 
         }
     }

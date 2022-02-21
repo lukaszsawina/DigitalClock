@@ -12,5 +12,20 @@ namespace DigitalClock.Model
         public int Id { get; set; }
         public string RoundNumber { get; set; }
         public string Time { get; set; }
+
+        private string _color;
+
+        public string Color
+        {
+            get { return _color; }
+            set 
+            { 
+                _color = value;
+                NotifyOfPropertyChange(() => Color);
+            }
+        }
+
+
+        public TimeSpan RoundTime { get; set; }
     }
 }

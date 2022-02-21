@@ -102,8 +102,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="100"  Foreground="#fff" Text="{Binding Path=RoundNumber, Mode=OneWay}"/>
-                        <TextBlock Width="170"  TextAlignment="Right" Foreground="#fff" Text="{Binding Path=Time, Mode=OneWay}"/>
+                        <TextBlock Width="100"  Foreground="{Binding Path=Color}" Text="{Binding Path=RoundNumber, Mode=OneWay}"/>
+                        <TextBlock Width="170"  TextAlignment="Right" Foreground="{Binding Path=Color}" Text="{Binding Path=Time, Mode=OneWay}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
