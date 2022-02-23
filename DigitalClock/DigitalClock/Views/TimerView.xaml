@@ -3,9 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="http://www.caliburnproject.org"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#0f0">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DatePickerTextBox x:Name="TimeSelectIsVisible" Text="{Binding Timer, Mode=TwoWay}" Grid.ColumnSpan="3" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+
+        <StackPanel x:Name="TimeLeftIsVisible" Grid.ColumnSpan="3">
+            <TextBlock
             
+            
+            Text="00:00"
+            FontSize="60"
+            Margin="0 80 0 60"
+            Foreground="#fff"
+            VerticalAlignment="Center"
+            HorizontalAlignment="center"/>
+        </StackPanel>
+        
+
+        <Border Grid.Row="1"
+                Margin="10 0"
+                BorderThickness="2"
+                BorderBrush="#1a1a1a"
+                CornerRadius="360"
+                Width="70"
+                Height="70"
+                x:Name="RoundIsVisible">
+            <Grid Width="60" Height="60" >
+                <Ellipse Fill="#1a1a1a"/>
+                <Button Style="{StaticResource CircleButton}" Content="Runda" cal:Message.Attach="[Event Click] = [Action AddRound()] " Foreground="#737373"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Grid.Column="2"
+                Margin="10 0"
+                BorderThickness="2"
+                BorderBrush="#004d00"
+                CornerRadius="360"
+                Width="70"
+                Height="70"
+                x:Name="StartButtonIsVisible"
+                >
+            <Grid Width="60" Height="60">
+                <Ellipse Fill="#004d00"/>
+                <Button Style="{StaticResource CircleButton}" Content="Start" cal:Message.Attach="[Event Click] = [Action StartTimer()] "/>
+            </Grid>
+        </Border>
+
+        <!--<Border Grid.Row="1"
+                Grid.Column="2"
+                Margin="10 0"
+                BorderThickness="2"
+                BorderBrush="#004d00"
+                CornerRadius="360"
+                Width="70"
+                Height="70"
+                x:Name="StopButtonIsVisible"
+                >
+            <Grid Width="60" Height="60" >
+                <Ellipse Fill="#004d00"/>
+                <Button Style="{StaticResource CircleButton}" Content="Stop" cal:Message.Attach="[Event Click] = [Action StopMeasureTime()]"/>
+            </Grid>
+        </Border>-->
+
+        <TextBlock Grid.Row="2" x:Name="Test" Foreground="#fff"/>
+
     </Grid>
 </UserControl>
