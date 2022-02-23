@@ -13,17 +13,19 @@ namespace DigitalClock.ViewModels
         private string _timer = "00:00:00";
         private bool _timeSelectIsVisible = true;
         private bool _timeLeftIsVisible = false;
-        private string _test;
+        private int _progress;
+
+        public int Progress
+        {
+            get { return _progress; }
+            set 
+            { 
+                _progress = value;
+                NotifyOfPropertyChange(() => Progress);
+            }
+        }
         public DateTime Time { get; set; }
         public DateTime TimeWhenStop { get; set; }
-
-        public string Test
-        {
-            get { return _test; }
-            set { _test = value; NotifyOfPropertyChange(() => Test); }
-        }
-
-
         public bool TimeLeftIsVisible
         {
             get { return _timeLeftIsVisible; }
@@ -33,8 +35,6 @@ namespace DigitalClock.ViewModels
                 NotifyOfPropertyChange(() => TimeLeftIsVisible);
             }
         }
-
-
         public bool TimeSelectIsVisible
         {
             get { return _timeSelectIsVisible; }
@@ -44,8 +44,6 @@ namespace DigitalClock.ViewModels
                 NotifyOfPropertyChange(() => TimeSelectIsVisible);
             }
         }
-
-
         public string Timer
         {
             get { return _timer; }
@@ -64,16 +62,14 @@ namespace DigitalClock.ViewModels
 
             Time = DateTime.ParseExact(Timer, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-            int hours = Int32.Parse(Timer.Substring(0,2));
-            int min = Int32.Parse(Timer.Substring(3, 2));
-            int sec = Int32.Parse(Timer.Substring(6, 2));
+            int hours = Int32.Parse(Timer.ToString().Substring(0,2));
+            int min = Int32.Parse(Timer.ToString().Substring(3, 2));
+            int sec = Int32.Parse(Timer.ToString().Substring(6, 2));
 
 
-
-            TimeWhenStop = DateTime.Now.AddMinutes(Time.);
+            TimeWhenStop = DateTime.Now.AddMinutes(min).AddHours(hours).AddSeconds(sec+1);
 
             DispatcherTimer timer = new DispatcherTimer();
-
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Time_Tick;
             timer.Start();
@@ -81,9 +77,9 @@ namespace DigitalClock.ViewModels
 
         public void Time_Tick(object sender, EventArgs args)
         {
-            
+            TimeSpan value = TimeWhenStop.Subtract(DateTime.Now);
 
-            Test = value.ToString(@"HH\:mm\:ss");
+            Timer = value.ToString(@"hh\:mm\:ss");
         }
     }
 }
