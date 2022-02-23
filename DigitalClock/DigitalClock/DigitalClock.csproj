@@ -83,6 +83,10 @@
     <Compile Include="Model\TimeZoneJsonModel.cs" />
     <Compile Include="Model\TimeZoneModel.cs" />
     <Compile Include="ViewModels\StopWatchViewModel.cs" />
+    <Compile Include="Views\TimerAlertView.xaml.cs">
+      <DependentUpon>TimerAlertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimerAlertViewModel.cs" />
     <Compile Include="Views\StopWatchView.xaml.cs">
       <DependentUpon>StopWatchView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Theme\NormalButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimerAlertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
