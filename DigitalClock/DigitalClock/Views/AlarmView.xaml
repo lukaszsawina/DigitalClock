@@ -4,21 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DigitalClock.Views"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <Button 
+        <Grid x:Name="AlarmListIsVisible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button 
                 x:Name="EditClock"
             Content="Edytuj" 
             Grid.Column="0" Grid.Row="0"
@@ -26,47 +28,82 @@
             BorderThickness="0"
             
             />
-        <Button 
+            <Button 
             Content="Dodaj" 
-            x:Name="AddNewClock"
+            x:Name="NewAlarm"
             Grid.Column="2" Grid.Row="0"
             Style="{StaticResource TopMenuButtonTheme}"
             BorderThickness="0"
            
             />
 
-        <TextBlock Grid.Row="1"
+            <TextBlock Grid.Row="1"
                    Grid.ColumnSpan="3"
                    Text="Alarm"
                    Foreground="#fff"
                    FontWeight="Bold"
                    FontSize="40"
                    Margin="4 10 0 10"/>
-        <StackPanel Grid.Row="2"
-                    Grid.ColumnSpan="3"
-                    Orientation="Horizontal">
-            <StackPanel Width="200">
-                <TextBlock Text="00:00" 
-                                       Foreground="#fff"
-                                       FontSize="60"/>
-                <TextBlock Text="Alarm"
-                                       Foreground="#fff"
-                                       FontSize="20"/>
-            </StackPanel>
-            <Button Content="Włącz" Height="30" Padding="20"/>
-        </StackPanel>
 
-
-        <!--<ListView Grid.Row="2"
+            <ListView Grid.Row="2"
                   Grid.ColumnSpan="3"
+                  ItemsSource="{Binding Path=Alarms}"
                   Background="Transparent"
+                  BorderBrush="Transparent"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Width="200">
+                                <TextBlock Text="{Binding Path=time}" 
+                                       Foreground="#fff"
+                                       FontSize="60"/>
+                                <TextBlock Text="Alarm"
+                                       Foreground="#fff"
+                                       FontSize="20"/>
+                            </StackPanel>
+                            <Button Content="{Binding Path=ButtonText}" Foreground="#ff9900" FontSize="20" Background="Transparent" Padding="20" BorderThickness="0" 
+                                    cal:Message.Attach="[Event Click] = [Action AlarmOff($dataContext)]"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid x:Name="AlarmAddIsVisible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button 
+            x:Name="CloseNewAlarm"
+            Content="Anuluj" 
+            Grid.Column="0" Grid.Row="0"
+            Style="{StaticResource TopMenuButtonTheme}"
+            BorderThickness="0"
+            
+            />
+            <Button 
+            Content="Zachowaj" 
+            x:Name="AddNewAlarm"
+            Grid.Column="2" Grid.Row="0"
+            Style="{StaticResource TopMenuButtonTheme}"
+            BorderThickness="0"
+            />
+
+            <StackPanel Grid.Row="1"  Grid.ColumnSpan="3" x:Name="TimeSelectIsVisible">
+                <DatePickerTextBox Margin="0 100" Text="{Binding NewAlarmClock, Mode=TwoWay}" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                               Background="Transparent" Foreground="#fff"
+                               FontSize="60" />
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </UserControl>

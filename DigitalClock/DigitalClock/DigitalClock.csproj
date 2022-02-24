@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AlarmModel.cs" />
     <Compile Include="Model\RoundModel.cs" />
     <Compile Include="Model\TimeZoneJsonModel.cs" />
     <Compile Include="Model\TimeZoneModel.cs" />
