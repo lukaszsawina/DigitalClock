@@ -12,6 +12,7 @@ namespace DigitalClock.ViewModels
         private WorldClocksViewModel _clockView = new WorldClocksViewModel();
         private TimerViewModel _timerView = new TimerViewModel();
         private StopWatchViewModel _stopWatchView = new StopWatchViewModel();
+        private AlarmViewModel _alarmView = new AlarmViewModel();
 
         public ShellViewModel()
         {
@@ -22,7 +23,10 @@ namespace DigitalClock.ViewModels
         {
             ActiveItem = _clockView;
         }
-
+        public void LoadAlarm()
+        {
+            ActiveItem = _alarmView;
+        }
         public void LoadStopWatch()
         {
             ActiveItem = _stopWatchView;

@@ -43,3 +43,5 @@ C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Theme\CircleButton.ba
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\bin\Debug\Syncfusion.Licensing.dll
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\TimerAlertView.g.cs
 C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\TimerAlertView.baml
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\AlarmView.g.cs
+C:\dev\C#\DigitalClock\DigitalClock\DigitalClock\obj\Debug\Views\AlarmView.baml

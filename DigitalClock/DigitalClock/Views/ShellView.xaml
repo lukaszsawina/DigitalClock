@@ -37,6 +37,7 @@
             >
             </Button>
             <Button 
+                x:Name="LoadAlarm"
             Content="Budzik"
             Grid.Row="4" Grid.Column="1"
             Style="{StaticResource MenuButtonTheme}"
