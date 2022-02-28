@@ -39,6 +39,7 @@ namespace DigitalClock.ViewModels
         private TimeZoneModel _selectedTimeZone;
 
         private readonly string _path = "TimeZone.json";
+        private readonly string _pathToClocksList = "Clocks.json";
 
         public bool DeleteButtonIsVisible
         {
@@ -192,6 +193,8 @@ namespace DigitalClock.ViewModels
 
             AddClockFormIsVisible = !AddClockFormIsVisible;
             WordlClockIsVisible = !AddClockFormIsVisible;
+
+            SaveClocks();
         }
 
         public void EditClock()
@@ -206,6 +209,16 @@ namespace DigitalClock.ViewModels
 
             if (Clocks.Count == 0)
                 EditClock();
+        }
+
+        private void SaveClocks()
+        {
+            using (StreamWriter file = File.CreateText(_pathToClocksList))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                //serialize object directly into file stream
+                serializer.Serialize(file, _clocks);
+            }
         }
     }
 }
