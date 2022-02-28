@@ -17,6 +17,9 @@ My first c# project. The project presents a desktop version of the clock applica
 Works average but it's my first c # project. While creating this project, I learned how to create WPF applications using Caliburn Micro to MVVM model.
 I know about numerous bugs and code imperfections
 
+</br>
+This project is actually unfinished, the alarms are only visual and the app always resets when turned back on.
+
 ### Built With
 
 * [C#](https://docs.microsoft.com/pl-pl/dotnet/csharp/)
